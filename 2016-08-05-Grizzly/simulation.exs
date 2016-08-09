@@ -3,8 +3,8 @@ Code.load_file("grizzly_simulation.ex")
 
 #Setup Variables Here:
 hours = 2 #How many fishes will you see?
-significance = 10 #How many times to run this to generate an Expected Value
-threshold_range = 1..1000 #What's the range you want to test?
+significance = 10000 #How many times to run this to generate an Expected Value
+threshold_range = 800..1000 #What's the range you want to test?
 
 results = threshold_range
 |> Enum.map(

@@ -26,7 +26,7 @@ defmodule GrizzlyProblemTest do
     assert GrizzlyProblem.eat_fish?(first_fish, threshold_in_grams) == %{consumed: true, current_fish: first_fish}
   end
 
-  test "Grizzly will eat if current fish is greater than larger than largest fish consumed" do
+  test "Grizzly will eat if current fish is greater than the largest fish consumed" do
     largest_fish_consumed = %{weight: 100}
     current_fish = %{weight: 200}
     assert GrizzlyProblem.eat_fish?(current_fish, largest_fish_consumed) == %{consumed: true, current_fish: current_fish}
