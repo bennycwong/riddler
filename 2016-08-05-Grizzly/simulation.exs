@@ -22,8 +22,8 @@ end
 
 #Setup Variables Here:
 hours = 2 #How many fishes will you see?
-significance = 100_000 #How many times to run this to generate an Expected Value
-threshold_range = 1..100 #What's the range you want to test?
+significance = 1_000 #How many times to run this to generate an Expected Value
+threshold_range = 1..1000 #What's the range you want to test?
 
 results = threshold_range
 |> Enum.map(
@@ -35,7 +35,7 @@ results = threshold_range
 #Used for exporting results
 max = results |> Enum.max()
 index_at_max = results |> Enum.find_index(fn x -> x == max end)
-threshold_at_max = index_at_max + 1
+threshold_at_max = (threshold_range |> Enum.to_list |> hd) + index_at_max
 
 #Used for exporting range
 range = %{first:
