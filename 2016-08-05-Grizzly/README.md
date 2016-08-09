@@ -40,16 +40,15 @@ threshold_range = 1..1_000
 ```
 
 
-## To Run
-
+## To Run Simulation
 ```bash
-elixir simulation.exs
+$ elixir simulation.exs
 ```
-The results will be outputted to results.csv in a new row.
+The results will be outputted to results/results.csv in a new row.
 
 
 ## How to view results:
-Click [here](./results.csv) to see the CSV of sample runs  
+Click [here](./results/results.csv) to see the CSV of sample runs  
 
 ##### Legend:  
 Winner: At what threshold did the Grizzly Bear eat the most fish in grams?  
@@ -57,3 +56,23 @@ Max: What was max amount of fish the Grizzly ate in the simulation?
 Hours: How long was the expedition (How many fishes did the Grizzly see?)  
 EV significance: How many tries did the simulation run at each threshold
 Range: What was the thresholds tested?
+
+
+## Pre Generated Expected Values
+Since generating the EV is the bulk of the wor, I've pre generated a whole bunch of them. Feel free to use that set for any analysis.  
+The file scheme is `results/ev-#{significance}.csv`.  
+For example, `ev-10000.csv` means it was ran with 10000 tries to get the expected value at that threshold.  
+Click [here](./results/ev-10000.csv) to see the CSV of sample runs  
+
+## Generate your own EV.csv for further Experimentation:
+To generate your own EV.csv, run the following command. You will be prompted to input two values in Integer form.
+
+[![demo](https://asciinema.org/a/82147.png)](https://asciinema.org/a/82147?autoplay=1)
+
+```bash
+$ elixir generate_expected_values.exs
+Expedition length in hours (how many fishes will you see)? [Please Enter Integer]
+2
+How many times to run this to generate an Expected Value? [Please Enter Integer]
+200
+```
