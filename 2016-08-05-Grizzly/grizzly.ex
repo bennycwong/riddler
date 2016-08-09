@@ -29,11 +29,11 @@ defmodule GrizzlyProblem do
   end
 
   def eat_fish?(first_fish, threshold_in_grams) when is_integer(threshold_in_grams) do
-    %{consumed: first_fish.weight >= threshold_in_grams, current_fish: first_fish}
+    %{consumed: first_fish.weight < threshold_in_grams, current_fish: first_fish}
   end
 
   def eat_fish?(current_fish, largest_fish_consumed) do
-    %{consumed: largest_fish_consumed.weight <= current_fish.weight, current_fish: current_fish}
+    %{consumed: current_fish.weight >= largest_fish_consumed.weight, current_fish: current_fish}
   end
 
   def gen_multiple_fish(n) when n <= 1 do

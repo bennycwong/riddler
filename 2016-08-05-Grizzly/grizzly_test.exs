@@ -14,16 +14,16 @@ defmodule GrizzlyProblemTest do
     assert GrizzlyProblem.generate_fish_in_grams.weight > 0
   end
 
-  test "Grizzly will eat first fish if it's larger than threshold" do
+  test "Grizzly will not eat first fish if it's larger than threshold" do
     first_fish = %{weight: 300}
     threshold_in_grams = 200
-    assert GrizzlyProblem.eat_fish?(first_fish, threshold_in_grams) == %{consumed: true, current_fish: first_fish}
+    assert GrizzlyProblem.eat_fish?(first_fish, threshold_in_grams) == %{consumed: false, current_fish: first_fish}
   end
 
-  test "Grizzly will not eat first fish if it's larger than threshold" do
+  test "Grizzly will eat first fish if it's smaller than threshold" do
     first_fish = %{weight: 100}
     threshold_in_grams = 200
-    assert GrizzlyProblem.eat_fish?(first_fish, threshold_in_grams) == %{consumed: false, current_fish: first_fish}
+    assert GrizzlyProblem.eat_fish?(first_fish, threshold_in_grams) == %{consumed: true, current_fish: first_fish}
   end
 
   test "Grizzly will eat if current fish is greater than larger than largest fish consumed" do
@@ -38,7 +38,7 @@ defmodule GrizzlyProblemTest do
     assert GrizzlyProblem.eat_fish?(current_fish, largest_fish_consumed) == %{consumed: true, current_fish: current_fish}
   end
 
-  test "Grizzly will not eat if current fish is greater than larger than largest fish consumed" do
+  test "Grizzly will not eat if current fish is smaller than the largest fish consumed" do
     largest_fish_consumed = %{weight: 200}
     current_fish = %{weight: 100}
     assert GrizzlyProblem.eat_fish?(current_fish, largest_fish_consumed) == %{consumed: false, current_fish: current_fish}
@@ -72,22 +72,22 @@ defmodule GrizzlyProblemTest do
     assert GrizzlyProblem.process_fishes([], :placeholder) == []
   end
 
-  test "Grizzly doesn't eat first fish if below threshold" do
+  test "Grizzly does eat first fish if below threshold" do
     fish_list = [
       %{unit: :gram, weight: 100 },
       %{unit: :gram, weight: 100 },
       %{unit: :gram, weight: 70 },
     ]
-    assert GrizzlyProblem.process_fishes(fish_list, 1000)|> Enum.map(&(&1.consumed)) == [false, true, false]
+    assert GrizzlyProblem.process_fishes(fish_list, 1000)|> Enum.map(&(&1.consumed)) == [true, true, false]
   end
 
-  test "Grizzly eats first fish if above threshold" do
+  test "Grizzly does not eat first fish if above threshold" do
     fish_list = [
       %{unit: :gram, weight: 100 },
       %{unit: :gram, weight: 100 },
       %{unit: :gram, weight: 70 },
     ]
-    assert GrizzlyProblem.process_fishes(fish_list, 0)|> Enum.map(&(&1.consumed)) == [true, true, false]
+    assert GrizzlyProblem.process_fishes(fish_list, 0)|> Enum.map(&(&1.consumed)) == [false, true, false]
   end
 
   test "Grizzly always eats second fish if first fish is skipped" do
@@ -96,16 +96,25 @@ defmodule GrizzlyProblemTest do
       %{unit: :gram, weight: 1 },
       %{unit: :gram, weight: 70 },
     ]
-    assert GrizzlyProblem.process_fishes(fish_list, 1000)|> Enum.map(&(&1.consumed)) == [false, true, true]
+    assert GrizzlyProblem.process_fishes(fish_list, 0)|> Enum.map(&(&1.consumed)) == [false, true, true]
   end
 
-  test "expedition returns the weight of fish" do
+  test "expedition returns the weight of fish when first fish is skipped" do
     fish_list = [
       %{unit: :gram, weight: 250 },
       %{unit: :gram, weight: 175 },
       %{unit: :gram, weight: 823 }
     ]
-    assert GrizzlyProblem.expedition(length(fish_list), 200, fish_list) == 1073
+    assert GrizzlyProblem.expedition(length(fish_list), 200, fish_list) == 998
+  end
+
+  test "expedition returns the weight of fish when first fish is eaten" do
+    fish_list = [
+      %{unit: :gram, weight: 250 },
+      %{unit: :gram, weight: 175 },
+      %{unit: :gram, weight: 823 }
+    ]
+    assert GrizzlyProblem.expedition(length(fish_list), 300, fish_list) == 1073
   end
 
 end
