@@ -67,8 +67,7 @@ Click [here](./results/ev-10000.csv) to see the CSV of sample runs
 ## Generate your own EV.csv for further Experimentation:
 To generate your own EV.csv, run the following command. You will be prompted to input two values in Integer form.
 
-[![demo](https://asciinema.org/a/82147.png)](https://asciinema.org/a/82147?autoplay=1)
-
+[![demo](./cli.gif)](https://asciinema.org/a/82147?autoplay=1)
 ```bash
 $ elixir generate_expected_values.exs
 Expedition length in hours (how many fishes will you see)? [Please Enter Integer]
