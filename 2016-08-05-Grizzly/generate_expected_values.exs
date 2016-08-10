@@ -32,7 +32,7 @@ results = threshold_range
     end
   )
 
-path = "results/ev-#{significance}.csv"
+path = "results/ev-#{hours}-#{significance}.csv"
 
 if File.exists?(path), do: File.rm!(path)
 
