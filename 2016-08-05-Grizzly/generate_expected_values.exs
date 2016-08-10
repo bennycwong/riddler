@@ -31,9 +31,11 @@ results = threshold_range
       {threshold, GrizzySimulation.map_threshold_tuple(hours, threshold, significance), hours, significance}   |> Tuple.to_list |> Enum.join(",")
     end
   )
+dir = "/grams/results/#{hours}-hours/"
+filename = "ev-#{hours}-#{significance}.csv"
+path = dir <> filename
 
-path = "results/ev-#{hours}-#{significance}.csv"
-
+if !File.dir?(dir), do: File.mkdir(dir)
 if File.exists?(path), do: File.rm!(path)
 
 #Write Header

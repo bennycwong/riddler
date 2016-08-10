@@ -30,4 +30,4 @@ range = %{first:
             }
 
 #Writes the result to results.csv
-File.write!("results/results.csv", "#{threshold_at_max},#{max},#{hours},#{significance},#{range.first}..#{range.last}\n", [:append])
+File.write!("results/grams/results.csv", "#{threshold_at_max},#{max},#{hours},#{significance},#{range.first}..#{range.last}\n", [:append])

@@ -44,11 +44,11 @@ threshold_range = 1..1_000
 ```bash
 $ elixir simulation.exs
 ```
-The results will be outputted to results/results.csv in a new row.
+The results will be outputted to results/grams/results.csv in a new row.
 
 
 ## How to view results:
-Click [here](./results/results.csv) to see the CSV of sample runs  
+Click [here](./results/grams/results.csv) to see the CSV of sample runs  
 
 ##### Legend:  
 Winner: At what threshold did the Grizzly Bear eat the most fish in grams?  
@@ -60,9 +60,9 @@ Range: What was the thresholds tested?
 
 ## Pre Generated Expected Values
 Since generating the EV is the bulk of the wor, I've pre generated a whole bunch of them. Feel free to use that set for any analysis.  
-The file scheme is `results/ev-#{significance}.csv`.  
-For example, `ev-10000.csv` means it was ran with 10000 tries to get the expected value at that threshold.  
-Click [here](./results/ev-10000.csv) to see the CSV of sample runs  
+The file scheme is `results/grams/#{hours}/ev-#{hours}-#{significance}.csv`.  
+For example, `ev-2-10000.csv` means it was ran with 10000 tries to get the expected value at that threshold, with 2 hours
+Click [here](./results/grams/2-hours/ev-2-10000.csv) to see the CSV of sample runs  
 
 ## Generate your own EV.csv for further Experimentation:
 To generate your own EV.csv, run the following command. You will be prompted to input two values in Integer form.
