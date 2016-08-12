@@ -14,7 +14,7 @@ defmodule Mix.Tasks.Elevator.Simulate do
     dir = "results"
     create_results_diretory(dir)
     path = "#{dir}/elevator-#{max_people}-#{max_floors}-#{significance}.csv"
-    start_new_file(path, max_floors)
+    start_new_file(path)
     run_simluation(max_people, max_floors, significance, path)
 
     IO.puts "Simluation Complete!"
@@ -23,13 +23,12 @@ defmodule Mix.Tasks.Elevator.Simulate do
 
   defp run_simluation(max_people, max_floors, significance, path) do
     1..max_people
-    |> Enum.map(fn people -> %{people: people, floors: 1..max_floors |> Enum.to_list} end)
-    |> Enum.map(fn data -> data.floors
-                           |> Enum.map(fn floors -> get_expected_value(significance, data.people, floors) end )
-                           |> List.insert_at(0, "#{data.people} People") |> Enum.join(",")
-                           |> export_results(path)
-                end)
-
+    |> Enum.map(fn people ->
+      1..max_floors |> Enum.map(fn floors ->
+        %{people: people, floors: floors, ev: get_expected_value(significance, people, floors)}
+        |> export_results(path)
+      end)
+    end)
   end
 
   defp ask_for_max_people do
@@ -77,14 +76,13 @@ defmodule Mix.Tasks.Elevator.Simulate do
     if !results_dir_exist?, do: File.mkdir(dir)
   end
 
-  defp start_new_file(path, floors) do
+  defp start_new_file(path) do
     if File.exists?(path), do: File.rm!(path)
-    header = 1..floors |> Enum.to_list |> Enum.map(&( "#{&1|>Integer.to_string} Floors" ))|> Enum.join(",")
-    File.write!(path, "EV Chart,#{header}\n", [:append])
+    File.write!(path, "People,Floors,EV\n", [:append])
   end
 
-  defp export_results(row, path) do
-    IO.puts "Simulating #{row |> String.split(",") |> List.first}..."
-    File.write!(path, "#{row}\n", [:append])
+  defp export_results(data, path) do
+    IO.puts "Simulating People: #{data.people}, Floors: #{data.floors}"
+    File.write!(path, "#{data.people},#{data.floors},#{data.ev}\n", [:append])
   end
 end
