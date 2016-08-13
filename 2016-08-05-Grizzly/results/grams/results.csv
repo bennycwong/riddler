@@ -1,7 +1,0 @@
-Winner (Threshold),Max (Grams Eaten),Hours (Length of Expedition),EV significance (Number of Tries),Range (What was tested?)
-965,1201,2,10,1..1000
-197,520,2,10000,1..200
-397,575,2,10000,200..400
-586,647,2,10000,400..600
-797,736,2,10000,600..800
-999,835,2,10000,800..1000
