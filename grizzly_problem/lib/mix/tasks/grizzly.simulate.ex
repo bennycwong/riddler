@@ -27,6 +27,8 @@ defmodule Mix.Tasks.Grizzly.Simulate do
         simulate_grizzly(threshold_range, hours, significance, path)
       end
       )
+
+    IO.puts "Simulation complete. View the results at #{path}"
   end
 
   defp simulate_grizzly(threshold_range, hours, significance, path) do
