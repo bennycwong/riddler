@@ -23,7 +23,7 @@ defmodule ElevatorButtonTest do
   end
 
   test "Simulate returns an integer representing of lights pressed in a given scenario" do
-    assert ElevatorButton.simluate(10, 3) |> is_integer == true
+    assert ElevatorButton.simulate(10, 3) |> is_integer == true
   end
 
 

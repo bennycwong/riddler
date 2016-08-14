@@ -2,26 +2,26 @@ defmodule Mix.Tasks.Elevator.Simulate do
   use Mix.Task
   alias ElevatorButton
 
-  @shortdoc "Run the Elevator Button Simluation"
+  @shortdoc "Run the Elevator Button Simulation"
   def run(_) do
 
     max_people = get_max_people
     max_floors = get_max_floors
     significance = get_significance
 
-    IO.puts "Running Simluation..."
+    IO.puts "Running Simulation..."
 
     dir = "results"
     create_results_diretory(dir)
     path = "#{dir}/elevator-#{max_people}-#{max_floors}-#{significance}.csv"
     start_new_file(path)
-    run_simluation(max_people, max_floors, significance, path)
+    run_simulation(max_people, max_floors, significance, path)
 
-    IO.puts "Simluation Complete!"
+    IO.puts "Simulation Complete!"
     IO.puts "Find results at #{path}"
   end
 
-  defp run_simluation(max_people, max_floors, significance, path) do
+  defp run_simulation(max_people, max_floors, significance, path) do
     1..max_people
     |> Enum.map(fn people ->
       1..max_floors |> Enum.map(fn floors ->
@@ -32,7 +32,7 @@ defmodule Mix.Tasks.Elevator.Simulate do
   end
 
   defp ask_for_max_people do
-    IO.gets "Run the simluation for up to how many people? [Please Enter Integer]\n"
+    IO.gets "Run the simulation for up to how many people? [Please Enter Integer]\n"
   end
 
   defp get_max_people do
@@ -41,7 +41,7 @@ defmodule Mix.Tasks.Elevator.Simulate do
     |> String.to_integer
   end
   defp ask_for_max_floors do
-    IO.gets "Run the simluation for up to how many floors? [Please Enter Integer]\n"
+    IO.gets "Run the simulation for up to how many floors? [Please Enter Integer]\n"
   end
 
   defp get_max_floors do
@@ -51,7 +51,7 @@ defmodule Mix.Tasks.Elevator.Simulate do
   end
 
   defp ask_for_significance do
-    IO.gets "How many times to run the simluation? Higher means more accurate expected value, but slower? [Please Enter Integer]\n"
+    IO.gets "How many times to run the simulation? Higher means more accurate expected value, but slower? [Please Enter Integer]\n"
   end
 
   defp get_significance do
@@ -63,7 +63,7 @@ defmodule Mix.Tasks.Elevator.Simulate do
   defp get_expected_value(significance, how_many_people, floors) do
     1..significance
     |> Enum.map(fn _ ->
-      ElevatorButton.simluate(how_many_people, floors)
+      ElevatorButton.simulate(how_many_people, floors)
     end)
     |> Enum.sum
     |> div(significance)

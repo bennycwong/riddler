@@ -1,9 +1,9 @@
 defmodule ElevatorButton do
 
-  def simluate(how_many_people, floors) do
-    how_many_people
+  def simulate(number_of_people, number_of_floors) do
+    number_of_people
     |> make_list_of_people
-    |> each_person_picks_a_floor(floors)
+    |> each_person_picks_a_floor(number_of_floors)
     |> unique_floors_pressed
     |> count_floor_buttons_pressed
   end
@@ -12,12 +12,12 @@ defmodule ElevatorButton do
     1..people_count |> Enum.to_list
   end
 
-  def each_person_picks_a_floor(list, floors) do
-    list |> Enum.map(fn _ -> randomly_pick_a_floor(floors) end)
+  def each_person_picks_a_floor(list, number_of_floors) do
+    list |> Enum.map(fn _ -> randomly_pick_a_floor(number_of_floors) end)
   end
 
-  def randomly_pick_a_floor(floors) do
-    1..floors |> Enum.random
+  def randomly_pick_a_floor(number_of_floors) do
+    1..number_of_floors |> Enum.random
   end
 
 
